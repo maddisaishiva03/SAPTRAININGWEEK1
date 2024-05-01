@@ -1,0 +1,46 @@
+*&---------------------------------------------------------------------*
+*& Report ZDAY3_STRINGS
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZDAY3_STRINGS.
+
+"CONCATINATE
+
+PARAMETERS : P_1(20) , P_2(20) ,P_3(20).
+CONCATENATE P_1 P_2 INTO P_1 SEPARATED BY ' '.
+WRITE P_1.
+
+" SPLIT
+*SPLIT P_1  AT 'S' INTO P_2 P_1.
+*WRITE /: P_2, P_1 .
+*
+
+"TRANSLATE
+
+TRANSLATE P_1 TO UPPER CASE.
+WRITE P_1.
+
+
+data V_LEN TYPE I.
+V_LEN = STRLEN( P_1 ).
+WRITE V_LEN.
+
+
+*REPLACE
+* REPLACE ',' WITH '$' INTO P_SRC.
+DO 2 TIMES.
+IF P_1 CA 'S'.
+  REPLACE 'S' WITH 'D' INTO P_1.
+* ELSE.
+*   EXIT .
+  ENDIF.
+  ENDDO.
+WRITE P_1.
+
+
+
+**OFFSET
+
+P_1 = P_1+2(3).
+WRITE P_1.

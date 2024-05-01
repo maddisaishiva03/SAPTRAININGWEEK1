@@ -1,0 +1,26 @@
+*&---------------------------------------------------------------------*
+*& Report ZDAY_2_DEMO
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZDAY_2_DEMO.
+*
+*TABLEs  LFA1.
+*
+*DATA : LV_LIFNR TYPE LIFNR, LV_LAND1 TYPE LAND1,
+*       LV_NAME1 TYPE NAME1,LV_ORT01 TYPE ORT01.
+*
+*
+*SELECT LIFNR LAND1 NAME1 ORT01 INTO ( LV_LIFNR,LV_LAND1,LV_NAME1,LV_ORT01 ) FROM LFA1
+*        WHERE LIFNR = '0000000001'.
+*  WRITE :/ LV_LIFNR,LV_LAND1,LV_NAME1,LV_ORT01.
+*  ENDSELECT.
+*
+** dATA :  LV_LAND1 TYPE LAND1,LV_ORT01 TYPE ORT01 ."LV_LIFNR1 TYPE LIFNR.
+**
+** PARAMETERS LV_LIFNR TYPE LIFNR .
+***SELECT-OPTIONS LV_LIFNR FOR LV_LIFNR1.
+**
+**SELECT LIFNR LAND1 ORT01 INTO (LV_LIFNR1,LV_LAND1,LV_ORT01) FROM LFA1 WHERE  LIFNR IN LV_LIFNR.
+** WRITE :/ LV_LIFNR , LV_LAND1, LV_ORT01.
+** ENDSELECT.

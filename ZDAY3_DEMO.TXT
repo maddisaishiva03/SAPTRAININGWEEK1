@@ -1,0 +1,19 @@
+*&---------------------------------------------------------------------*
+*& Report ZDAY3_DEMO
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZDAY3_DEMO.
+
+TABLES ZSALES12.
+DATA LV_PRODID TYPE Z_280382_PRODUCT_ID.
+DATA LV_SALES TYPE Z_280382_SALES.
+
+SELECT-OPTIONS SPRODID1 FOR LV_PRODID.
+PARAMETERS P_SALES TYPE Z_280382_SALES.
+
+SELECT PRODUCT_ID  SALES INTO ( LV_PRODID , LV_SALES ) FROM ZSALES12 WHERE
+   PRODUCT_ID IN SPRODID1 AND SALES EQ P_SALES .
+
+ WRITE :/ LV_PRODID , LV_SALES.
+  ENDSELECT.

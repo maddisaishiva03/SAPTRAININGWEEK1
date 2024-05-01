@@ -1,0 +1,51 @@
+*&---------------------------------------------------------------------*
+*& Report ZDAY5_INNERJOIN
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zday5_innerjoin.
+
+TYPES : BEGIN OF ls_tab ,
+         VBELN TYPE VBAP-VBELN,
+          POSNR TYPE VBAP-POSNR,
+      MATNR TYPE VBAP-MATNR,
+  MATWA TYPE VBAP-MATWA,
+
+
+        ERDAT TYPE VBAK-ERDAT,
+ERZET TYPE  VBAK-ERZET,
+ERNAM	TYPE VBAK-ERNAM,
+
+*POSNR TYPE	POSNR_VA,
+ETENR	TYPE ETENR,
+ETTYP	TYPE ETTYP,
+        END OF ls_tab.
+
+DATA : LT_TAB TYPE STANDARD TABLE OF LS_TAB,
+      WA_TAB TYPE LS_TAB.
+
+SELECT-OPTIONS S_VBELN FOR WA_TAB-VBELN.
+
+START-OF-SELECTION .
+        SELECT  VBAP~VBELN VBAP~POSNR VBAP~MATNR VBAP~MATWA vbak~ERDAT vbak~ERZET vbak~ERNAM
+           VBEP~ETENR VBEP~ETTYP
+           INTO TABLE LT_TAB FROM VBAP INNER JOIN VBAK ON VBAP~VBELN = VBAK~VBELN
+          INNER JOIN VBEP ON VBAP~VBELN = VBEP~VBELN
+          WHERE VBAP~VBELN IN S_VBELN .
+
+   IF SY-SUBRC = 0 .
+     WRITE : 'THE COUNT OF THE OUTPUT IS ' , SY-dbcnt.
+     ELSE .
+       WRITE : 'THERE ARE NO RECORDS FOUND '.
+   ENDIF.
+END-OF-SELECTION .
+
+LOOP AT LT_TAB INTO WA_TAB .
+    WRITE :/ WA_TAB-VBELN,
+              WA_TAB-POSNR,
+              WA_TAB-MATNR,
+              WA_TAB-MATWA,
+              WA_TAB-ERDAT,
+              WA_TAB-ERZET,
+              WA_TAB-ERNAM.
+ ENDLOOP.
